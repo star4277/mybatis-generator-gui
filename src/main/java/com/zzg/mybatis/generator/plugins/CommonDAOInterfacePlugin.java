@@ -20,6 +20,8 @@ public class CommonDAOInterfacePlugin extends PluginAdapter {
 
     private static final String DEFAULT_DAO_SUPER_CLASS = ".BaseMapper";
     private static final FullyQualifiedJavaType SERIALIZEBLE_TYPE = new FullyQualifiedJavaType("java.io.Serializable");
+    private static final FullyQualifiedJavaType PARAM_TYPE = new FullyQualifiedJavaType("org.apache.ibatis.annotations.Param");
+    private static final FullyQualifiedJavaType LIST_TYPE = new FullyQualifiedJavaType("java.util.List");
 
     private List<Method> methods = new ArrayList<>();
 
@@ -45,6 +47,8 @@ public class CommonDAOInterfacePlugin extends PluginAdapter {
 
         if (stringHasValue(daoTargetPackage)) {
             mapperInterface.addImportedType(SERIALIZEBLE_TYPE);
+            mapperInterface.addImportedType(PARAM_TYPE);
+            mapperInterface.addImportedType(LIST_TYPE);
 
             mapperInterface.setVisibility(JavaVisibility.PUBLIC);
             mapperInterface.addJavaDocLine("/**");

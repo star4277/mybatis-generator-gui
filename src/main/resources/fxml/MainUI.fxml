@@ -201,6 +201,7 @@
                                        <children>
                                           <CheckBox fx:id="useLombokPlugin" mnemonicParsing="false" text="LombokPlugin" />
                                           <CheckBox fx:id="needToStringHashcodeEquals" mnemonicParsing="false" selected="true" text="生成toString/hashCode/equals方法" />
+                                          <CheckBox fx:id="useSerial" mnemonicParsing="false" selected="true" text="生成序列化注解" />
                                        </children>
                                     </HBox>
                                      <HBox prefHeight="100.0" prefWidth="200.0">

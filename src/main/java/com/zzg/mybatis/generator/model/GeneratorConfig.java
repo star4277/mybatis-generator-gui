@@ -50,7 +50,7 @@ public class GeneratorConfig {
 
 	private boolean annotationDAO;
 
-
+    private boolean useSerial;
 
 	private boolean useExample;
 
@@ -256,4 +256,12 @@ public class GeneratorConfig {
 	public boolean isUseDAOExtendStyle() {
 		return useDAOExtendStyle;
 	}
+
+    public boolean isUseSerial() {
+        return useSerial;
+    }
+
+    public void setUseSerial(boolean useSerial) {
+        this.useSerial = useSerial;
+    }
 }

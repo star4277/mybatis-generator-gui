@@ -46,6 +46,9 @@ public class MainUIController extends BaseFXController {
 
     private static final Logger _LOG = LoggerFactory.getLogger(MainUIController.class);
     private static final String FOLDER_NO_EXIST = "部分目录不存在，是否创建";
+
+    @FXML
+    public CheckBox useSerial;
     // tool bar buttons
     @FXML
     private Label connectionLabel;
@@ -192,7 +195,7 @@ public class MainUIController extends BaseFXController {
                         this.tableName = tableName;
                         tableNameField.setText(tableName);
                         domainObjectNameField.setText(MyStringUtils.dbStringToCamelStyle(tableName));
-                        mapperName.setText(domainObjectNameField.getText().concat("DAO"));
+                        mapperName.setText(domainObjectNameField.getText().concat("Mapper"));
                     }
                 }
             });
@@ -419,6 +422,7 @@ public class MainUIController extends BaseFXController {
         generatorConfig.setUseExample(useExample.isSelected());
         generatorConfig.setUseDAOExtendStyle(useDAOExtendStyle.isSelected());
         generatorConfig.setJsr310Support(jsr310Support.isSelected());
+        generatorConfig.setUseSerial(useSerial.isSelected());
         return generatorConfig;
     }
 
@@ -445,6 +449,7 @@ public class MainUIController extends BaseFXController {
         useExample.setSelected(generatorConfig.isUseExample());
         useDAOExtendStyle.setSelected(generatorConfig.isUseDAOExtendStyle());
         jsr310Support.setSelected(generatorConfig.isJsr310Support());
+        useSerial.setSelected(generatorConfig.isUseSerial());
     }
 
     @FXML

@@ -6,6 +6,7 @@ import com.zzg.mybatis.generator.model.DatabaseConfig;
 import com.zzg.mybatis.generator.model.DbType;
 import com.zzg.mybatis.generator.model.GeneratorConfig;
 import com.zzg.mybatis.generator.plugins.DbRemarksCommentGenerator;
+import com.zzg.mybatis.generator.plugins.SerializationPlugin;
 import com.zzg.mybatis.generator.util.ConfigHelper;
 import com.zzg.mybatis.generator.util.DbUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -85,6 +86,7 @@ public class MybatisGeneratorBridge {
 		} else {
             tableConfig.setCatalog(selectedDatabaseConfig.getSchema());
 	    }
+
         // 针对 postgresql 单独配置
 		if (DbType.PostgreSQL.name().equals(dbType)) {
             tableConfig.setDelimitIdentifiers(true);
@@ -163,15 +165,20 @@ public class MybatisGeneratorBridge {
 
         //实体添加序列化
         PluginConfiguration serializablePluginConfiguration = new PluginConfiguration();
-        serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.SerializablePlugin");
-        serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
+        serializablePluginConfiguration.addProperty("type", SerializationPlugin.class.getName());
+        serializablePluginConfiguration.addProperty(SerializationPlugin.SERIAL_KEY,String.valueOf(generatorConfig.isUseSerial()));
+        serializablePluginConfiguration.setConfigurationType(SerializationPlugin.class.getName());
         context.addPluginConfiguration(serializablePluginConfiguration);
 
-
         PluginConfiguration mapperAnnotationPlugin = new PluginConfiguration();
-        serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.MapperAnnotationPlugin");
-        serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.MapperAnnotationPlugin");
+        mapperAnnotationPlugin.addProperty("type", "org.mybatis.generator.plugins.MapperAnnotationPlugin");
+        mapperAnnotationPlugin.setConfigurationType("org.mybatis.generator.plugins.MapperAnnotationPlugin");
         context.addPluginConfiguration(mapperAnnotationPlugin);
+
+        PluginConfiguration caseInsensitiveLikePlugin = new PluginConfiguration();
+        caseInsensitiveLikePlugin.addProperty("type", "org.mybatis.generator.plugins.CaseInsensitiveLikePlugin");
+        caseInsensitiveLikePlugin.setConfigurationType("org.mybatis.generator.plugins.CaseInsensitiveLikePlugin");
+        context.addPluginConfiguration(caseInsensitiveLikePlugin);
 
 
         // Lombok 插件
