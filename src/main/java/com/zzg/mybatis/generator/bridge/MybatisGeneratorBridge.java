@@ -1,7 +1,5 @@
 package com.zzg.mybatis.generator.bridge;
 
-import com.jcraft.jsch.Session;
-import com.zzg.mybatis.generator.controller.PictureProcessStateController;
 import com.zzg.mybatis.generator.model.DatabaseConfig;
 import com.zzg.mybatis.generator.model.DbType;
 import com.zzg.mybatis.generator.model.GeneratorConfig;
@@ -185,6 +183,7 @@ public class MybatisGeneratorBridge {
         customXmlPlugin.addProperty("type", CustomXmlPlugin.class.getName());
         customXmlPlugin.setConfigurationType(CustomXmlPlugin.class.getName());
         context.addPluginConfiguration(customXmlPlugin);
+
 
         // Lombok 插件
         if (generatorConfig.isUseLombokPlugin()) {
