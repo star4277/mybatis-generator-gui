@@ -84,21 +84,9 @@ public class MainUIController extends BaseFXController {
     @FXML
     private CheckBox useLombokPlugin;
     @FXML
-    private CheckBox forUpdateCheckBox;
-    @FXML
-    private CheckBox annotationDAOCheckBox;
-    @FXML
-    private CheckBox useTableNameAliasCheckbox;
-    @FXML
-    private CheckBox annotationCheckBox;
-    @FXML
-    private CheckBox useActualColumnNamesCheckbox;
-    @FXML
     private CheckBox useExample;
     @FXML
     private CheckBox useDAOExtendStyle;
-    @FXML
-    private CheckBox useSchemaPrefix;
     @FXML
     private CheckBox jsr310Support;
     @FXML
@@ -269,11 +257,8 @@ public class MainUIController extends BaseFXController {
 		generateKeysField.setTooltip(new Tooltip("insert时可以返回主键ID"));
 		offsetLimitCheckBox.setTooltip(new Tooltip("是否要生成分页查询代码"));
 		commentCheckBox.setTooltip(new Tooltip("使用数据库的列注释作为实体类字段名的Java注释 "));
-		useActualColumnNamesCheckbox.setTooltip(new Tooltip("是否使用数据库实际的列名作为实体类域的名称"));
-		useTableNameAliasCheckbox.setTooltip(new Tooltip("在Mapper XML文件中表名使用别名，并且列全部使用as查询"));
 		overrideXML.setTooltip(new Tooltip("重新生成时把原XML文件覆盖，否则是追加"));
         useDAOExtendStyle.setTooltip(new Tooltip("将通用接口方法放在公共接口中，DAO接口留空"));
-        forUpdateCheckBox.setTooltip(new Tooltip("在Select语句中增加for update后缀"));
         useLombokPlugin.setTooltip(new Tooltip("实体类使用Lombok @Data简化代码"));
 	}
 
@@ -430,15 +415,9 @@ public class MainUIController extends BaseFXController {
         generatorConfig.setOverrideXML(overrideXML.isSelected());
         generatorConfig.setNeedToStringHashcodeEquals(needToStringHashcodeEquals.isSelected());
         generatorConfig.setUseLombokPlugin(useLombokPlugin.isSelected());
-        generatorConfig.setUseTableNameAlias(useTableNameAliasCheckbox.isSelected());
-        generatorConfig.setNeedForUpdate(forUpdateCheckBox.isSelected());
-        generatorConfig.setAnnotationDAO(annotationDAOCheckBox.isSelected());
-        generatorConfig.setAnnotation(annotationCheckBox.isSelected());
-        generatorConfig.setUseActualColumnNames(useActualColumnNamesCheckbox.isSelected());
         generatorConfig.setEncoding(encodingChoice.getValue());
         generatorConfig.setUseExample(useExample.isSelected());
         generatorConfig.setUseDAOExtendStyle(useDAOExtendStyle.isSelected());
-        generatorConfig.setUseSchemaPrefix(useSchemaPrefix.isSelected());
         generatorConfig.setJsr310Support(jsr310Support.isSelected());
         return generatorConfig;
     }
@@ -462,15 +441,9 @@ public class MainUIController extends BaseFXController {
         overrideXML.setSelected(generatorConfig.isOverrideXML());
         needToStringHashcodeEquals.setSelected(generatorConfig.isNeedToStringHashcodeEquals());
         useLombokPlugin.setSelected(generatorConfig.isUseLombokPlugin());
-        useTableNameAliasCheckbox.setSelected(generatorConfig.getUseTableNameAlias());
-        forUpdateCheckBox.setSelected(generatorConfig.isNeedForUpdate());
-        annotationDAOCheckBox.setSelected(generatorConfig.isAnnotationDAO());
-        annotationCheckBox.setSelected(generatorConfig.isAnnotation());
-        useActualColumnNamesCheckbox.setSelected(generatorConfig.isUseActualColumnNames());
         encodingChoice.setValue(generatorConfig.getEncoding());
         useExample.setSelected(generatorConfig.isUseExample());
         useDAOExtendStyle.setSelected(generatorConfig.isUseDAOExtendStyle());
-        useSchemaPrefix.setSelected(generatorConfig.isUseSchemaPrefix());
         jsr310Support.setSelected(generatorConfig.isJsr310Support());
     }
 

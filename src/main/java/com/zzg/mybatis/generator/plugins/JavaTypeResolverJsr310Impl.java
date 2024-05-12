@@ -36,6 +36,9 @@ public class JavaTypeResolverJsr310Impl extends JavaTypeResolverDefaultImpl {
             case Types.TIMESTAMP:
                 answer = new FullyQualifiedJavaType(LocalDateTime.class.getName());
                 break;
+            case Types.BINARY:
+            case Types.SMALLINT:
+                answer = new FullyQualifiedJavaType(Integer.class.getName());
             default:
                 break;
         }

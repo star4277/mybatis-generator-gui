@@ -50,9 +50,7 @@ public class GeneratorConfig {
 
 	private boolean annotationDAO;
 
-	private boolean annotation;
 
-	private boolean useActualColumnNames;
 
 	private boolean useExample;
 
@@ -60,11 +58,9 @@ public class GeneratorConfig {
 
 	private String encoding;
 
-	private boolean useTableNameAlias;
 
 	private boolean useDAOExtendStyle;
 
-    private boolean useSchemaPrefix;
 
     private boolean jsr310Support;
 
@@ -76,13 +72,6 @@ public class GeneratorConfig {
         this.jsr310Support = jsr310Support;
     }
 
-    public boolean isUseSchemaPrefix() {
-        return useSchemaPrefix;
-    }
-
-    public void setUseSchemaPrefix(boolean useSchemaPrefix) {
-        this.useSchemaPrefix = useSchemaPrefix;
-    }
 
 	public boolean isUseExample() {
 		return useExample;
@@ -228,22 +217,6 @@ public class GeneratorConfig {
 		this.annotationDAO = annotationDAO;
 	}
 
-	public boolean isAnnotation() {
-		return annotation;
-	}
-
-	public void setAnnotation(boolean annotation) {
-		this.annotation = annotation;
-	}
-
-	public boolean isUseActualColumnNames() {
-		return useActualColumnNames;
-	}
-
-	public void setUseActualColumnNames(boolean useActualColumnNames) {
-		this.useActualColumnNames = useActualColumnNames;
-	}
-
 	public String getMapperName() {
 		return mapperName;
 	}
@@ -267,18 +240,6 @@ public class GeneratorConfig {
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }
-
-	public boolean getUseTableNameAlias() {
-		return useTableNameAlias;
-	}
-
-	public void setUseTableNameAlias(boolean useTableNameAlias) {
-		this.useTableNameAlias = useTableNameAlias;
-	}
-
-	public boolean isUseTableNameAlias() {
-		return useTableNameAlias;
-	}
 
 	public boolean isOverrideXML() {
 		return overrideXML;

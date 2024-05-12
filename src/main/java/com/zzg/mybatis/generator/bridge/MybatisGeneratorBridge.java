@@ -85,16 +85,6 @@ public class MybatisGeneratorBridge {
 		} else {
             tableConfig.setCatalog(selectedDatabaseConfig.getSchema());
 	    }
-        if (generatorConfig.isUseSchemaPrefix()) {
-            if (DbType.MySQL.name().equals(dbType) || DbType.MySQL_8.name().equals(dbType)) {
-                tableConfig.setSchema(selectedDatabaseConfig.getSchema());
-            } else if (DbType.Oracle.name().equals(dbType)) {
-                //Oracle的schema为用户名，如果连接用户拥有dba等高级权限，若不设schema，会导致把其他用户下同名的表也生成一遍导致mapper中代码重复
-                tableConfig.setSchema(selectedDatabaseConfig.getUsername());
-            } else {
-                tableConfig.setCatalog(selectedDatabaseConfig.getSchema());
-            }
-        }
         // 针对 postgresql 单独配置
 		if (DbType.PostgreSQL.name().equals(dbType)) {
             tableConfig.setDelimitIdentifiers(true);
@@ -125,13 +115,6 @@ public class MybatisGeneratorBridge {
         }
         if (columnOverrides != null) {
             columnOverrides.forEach(tableConfig::addColumnOverride);
-        }
-        if (generatorConfig.isUseActualColumnNames()) {
-			tableConfig.addProperty("useActualColumnNames", "true");
-        }
-
-		if(generatorConfig.isUseTableNameAlias()){
-            tableConfig.setAlias(generatorConfig.getTableName());
         }
 
         JDBCConnectionConfiguration jdbcConfig = new JDBCConnectionConfiguration();
@@ -174,9 +157,6 @@ public class MybatisGeneratorBridge {
         if (generatorConfig.isComment()) {
             commentConfig.addProperty("columnRemarks", "true");
         }
-        if (generatorConfig.isAnnotation()) {
-            commentConfig.addProperty("annotations", "true");
-        }
         context.setCommentGeneratorConfiguration(commentConfig);
         // set java file encoding
         context.addProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING, generatorConfig.getEncoding());
@@ -186,6 +166,13 @@ public class MybatisGeneratorBridge {
         serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.SerializablePlugin");
         serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
         context.addPluginConfiguration(serializablePluginConfiguration);
+
+
+        PluginConfiguration mapperAnnotationPlugin = new PluginConfiguration();
+        serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.MapperAnnotationPlugin");
+        serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.MapperAnnotationPlugin");
+        context.addPluginConfiguration(mapperAnnotationPlugin);
+
 
         // Lombok 插件
         if (generatorConfig.isUseLombokPlugin()) {
@@ -220,26 +207,6 @@ public class MybatisGeneratorBridge {
             JavaTypeResolverConfiguration javaTypeResolverConfiguration = new JavaTypeResolverConfiguration();
             javaTypeResolverConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.JavaTypeResolverJsr310Impl");
             context.setJavaTypeResolverConfiguration(javaTypeResolverConfiguration);
-        }
-        //forUpdate 插件
-        if(generatorConfig.isNeedForUpdate()) {
-            if (DbType.MySQL.name().equals(dbType)
-                    || DbType.PostgreSQL.name().equals(dbType)) {
-                PluginConfiguration pluginConfiguration = new PluginConfiguration();
-                pluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.MySQLForUpdatePlugin");
-                pluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.MySQLForUpdatePlugin");
-                context.addPluginConfiguration(pluginConfiguration);
-            }
-        }
-        //repository 插件
-        if(generatorConfig.isAnnotationDAO()) {
-            if (DbType.MySQL.name().equals(dbType) || DbType.MySQL_8.name().equals(dbType)
-                    || DbType.PostgreSQL.name().equals(dbType)) {
-                PluginConfiguration pluginConfiguration = new PluginConfiguration();
-                pluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.RepositoryPlugin");
-                pluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.RepositoryPlugin");
-                context.addPluginConfiguration(pluginConfiguration);
-            }
         }
         if (generatorConfig.isUseDAOExtendStyle()) {
             if (DbType.MySQL.name().equals(dbType) || DbType.MySQL_8.name().equals(dbType)

@@ -26,25 +26,24 @@ public class MySQLLimitPlugin extends PluginAdapter {
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
 
-        PrimitiveTypeWrapper integerWrapper = FullyQualifiedJavaType.getIntInstance().getPrimitiveTypeWrapper();
         PrimitiveTypeWrapper longWrapper = new FullyQualifiedJavaType("long").getPrimitiveTypeWrapper();
 
         Field limit = new Field();
         limit.setName("limit");
         limit.setVisibility(JavaVisibility.PRIVATE);
-        limit.setType(integerWrapper);
+        limit.setType(longWrapper);
         topLevelClass.addField(limit);
 
         Method setLimit = new Method();
         setLimit.setVisibility(JavaVisibility.PUBLIC);
         setLimit.setName("setLimit");
-        setLimit.addParameter(new Parameter(integerWrapper, "limit"));
+        setLimit.addParameter(new Parameter(longWrapper, "limit"));
         setLimit.addBodyLine("this.limit = limit;");
         topLevelClass.addMethod(setLimit);
 
         Method getLimit = new Method();
         getLimit.setVisibility(JavaVisibility.PUBLIC);
-        getLimit.setReturnType(integerWrapper);
+        getLimit.setReturnType(longWrapper);
         getLimit.setName("getLimit");
         getLimit.addBodyLine("return limit;");
         topLevelClass.addMethod(getLimit);
