@@ -101,7 +101,7 @@
                               <Label text="主键(选填)" GridPane.rowIndex="2" />
                               <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                                  <children>
-                                            <TextField fx:id="generateKeysField" prefHeight="25.0" prefWidth="216.0" promptText="primary key, such as id" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                            <TextField fx:id="generateKeysField" prefHeight="25.0" prefWidth="216.0" promptText="primary key, such as id" text="id" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                 <GridPane.margin>
                                                     <Insets left="5.0" right="5.0" />
                                                 </GridPane.margin>
